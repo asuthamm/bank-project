@@ -1,0 +1,26 @@
+# Squirrel Banking API
+
+> Banking API built with [Node.js](https://nodejs.org) + [Express](https://expressjs.com/).
+
+## API
+
+Route                                        | Description
+---------------------------------------------|------------------------------------
+GET    /                                     | Get server info
+POST   /api/accounts/                        | Create an account, ex: `{ user: 'Yohan', description: 'My budget', currency: 'EUR', balance: 100 }`
+GET    /api/accounts/:user                   | Get all data for the specified account
+DELETE /api/accounts/:user                   | Remove specified account
+POST   /api/accounts/:user/transactions      | Add a transaction, ex: `{ date: '2020-07-23T18:25:43.511Z', object: 'Bought a book', amount: -20 }`
+DELETE  /api/accounts/:user/transactions/:id | Remove specified transaction
+
+## Running the server
+
+Make sure you have [Node.js](https://nodejs.org) version installed.
+
+1. Git clone this repo.
+2. Open a terminal in `api` folder, then run `npm install`.
+3. Run `npm start`.
+
+The server should start listening on port `3000`.
+
+> Note: all entries are stored in-memory and are not persisted, so when the server is stopped all data is lost.

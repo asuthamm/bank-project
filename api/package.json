@@ -1,0 +1,29 @@
+{
+  "name": "squirrel-banking-api",
+  "version": "1.0.0",
+  "description": "Squirrel Banking API",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint",
+    "format": "prettier --single-quote --write *.js"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Yohan Lasorsa",
+    "url": "https://twitter.com/sinedied"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": ">=10"
+  }
+}
