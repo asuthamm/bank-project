@@ -2,11 +2,15 @@
 
 > Banking API built with [Node.js](https://nodejs.org) + [Express](https://expressjs.com/).
 
+The API is already built for you and not part of the exercise.
+
+However, if you're interested to learn how to build an API like this you can follow this tutorial: https://aka.ms/learn/express-api
+
 ## API
 
 Route                                        | Description
 ---------------------------------------------|------------------------------------
-GET    /                                     | Get server info
+GET    /api/                                 | Get server info
 POST   /api/accounts/                        | Create an account, ex: `{ user: 'Yohan', description: 'My budget', currency: 'EUR', balance: 100 }`
 GET    /api/accounts/:user                   | Get all data for the specified account
 DELETE /api/accounts/:user                   | Remove specified account
