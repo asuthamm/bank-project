@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const crypto = require('crypto');
 const pkg = require('./package.json');
 
 // App constants
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000;
 const apiPrefix = '/api';
 
 // Store data in-memory, not suited for production use!
@@ -14,6 +15,8 @@ const db = {};
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors({ origin: /http:\/\/localhost/ }));
+app.options('*', cors());
 
 // ***************************************************************************
 
@@ -40,15 +43,16 @@ router.post('/accounts', (req, res) => {
   }
 
   // Create account
-  db[req.body.user] = {
+  const account = {
     user: req.body.user,
     currency: req.body.currency,
     description: req.body.description || `${req.body.user}'s budget`,
     initialBalance: req.body.balance || 0,
     transactions: [],
   };
+  db[req.body.user] = account;
 
-  return res.sendStatus(201);
+  return res.status(201).json(account);
 });
 
 // ----------------------------------------------
@@ -110,14 +114,15 @@ router.post('/accounts/:user/transactions', (req, res) => {
   }
 
   // Add transaction
-  account.transactions.push({
+  const transaction = {
     id,
     date: req.body.date,
     object: req.body.object,
     amount: req.body.amount,
-  });
+  };
+  account.transactions.push(transaction);
 
-  return res.sendStatus(201);
+  return res.status(201).json(transaction);
 });
 
 // ----------------------------------------------
