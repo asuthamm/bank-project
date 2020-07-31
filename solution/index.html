@@ -23,16 +23,14 @@
         <div class="login-content">
           <h2 class="text-center">Login</h2>
           <form id="loginForm" action="javascript:login()">
-            <div id="loginError" class="error"></div>
             <label for="user">Username</label>
             <input name="user" type="text" maxlength="20" required>
-            <br>
+            <div id="loginError" class="error"></div>
             <button id="login">Login</button>
           </form>
           <p class="login-separator text-center"><span>OR</span></p>
           <h2 class="text-center">Register</h2>
           <form id="registerForm" action="javascript:register()">
-            <div id="registerError" class="error"></div>
             <label for="user">Username</label>
             <input name="user" type="text" maxlength="20" required>
             <label for="currency">Currency</label>
@@ -41,7 +39,7 @@
             <input name="description" type="text" maxlength="100">
             <label for="balance">Current balance</label>
             <input name="balance" type="number" value="0">
-            <br>
+            <div id="registerError" class="error"></div>
             <button id="register">Register</button>
           </form>
         </div>
@@ -53,30 +51,37 @@
   <template id="dashboard">
     <section class="dashboard-page">
       <header>
-        <h2 class="text-center" id="user"></h2>
-        <div class="balance"><span id="balance" aria-label="balance"></span></div>
+        <nav>
+          <img class="logo" src="logo.svg" alt="Squirrel Banking Logo">
+
+        </nav>
+        <div class="balance">
+          <span id="balance" aria-label="balance"></span>
+          <span id="currency" aria-label="currency symbol"></span>
+        </div>
       </header>
-      <p id="dashboardError" class="error"></p>
-      <table>
-        <thead>
-          <th>
-            <td>Date</td>
-            <td>Object</td>
-            <td>Amount</td>
-          </th>
-        </thead>
-        <tbody>
+      <h2 class="text-center" id="description"></h2>
+      <div class="dashboard-content">
+        <p id="dashboardError" class="error"></p>
+        <table>
+          <thead>
+            <th>
+              <td>Date</td>
+              <td>Object</td>
+              <td>Amount</td>
+            </th>
+          </thead>
+          <tbody>
 
-        </tbody>
-      </table>
-
+          </tbody>
+        </table>
+      </div>
       <button onclick="addTransaction()" aria-label="Add transaction">+</button>
-
-      <button onclick="gologin()">Login</button>
+      <button onclick="logout()">Logout</button>
     </section>
     <section id="transactionDialog" class="dialog">
       <div class="dialog-content">
-        <h2>Add transaction</h2>
+        <h2 class="text-center">Add transaction</h2>
         <form id="transactionForm" action="javascript:void(0)">
           <label for="date">Date</label> 
           <input name="date" type="date" required>
@@ -84,11 +89,12 @@
           <input name="object" type="text" maxlength="50" required>
           <label for="amount">Amount</label> 
           <input name="amount" type="number" value="0" required>
+          <div id="transactionError" class="error"></div>
+          <div class="dialog-buttons">
+            <button class="button-alt" formaction="javascript:cancelTransaction()" formnovalidate>Cancel</button>
+            <button formaction="javascript:confirmTransaction()">OK</button>
+          </div>
         </form>
-        <div class="text-right">
-          <button class="alt" onclick="cancelTransaction()">Cancel</button>
-          <button onclick="confirmTransaction()">OK</button>
-        </div>
       </div>
     </section>
   </template>

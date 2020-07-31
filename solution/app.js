@@ -62,7 +62,7 @@ async function createAccount(account) {
   return sendRequest('/accounts', 'POST', account);
 }
 
-async function addTransaction(user, transaction) {
+async function createTransaction(user, transaction) {
   return sendRequest('/accounts/' + user + '/transactions', 'POST', transaction);
 }
 
@@ -74,6 +74,10 @@ let state = {
   user: 'toto2',
   account: null
 };
+
+function updateState(newState) {
+  state = newState;
+}
 
 // ---------------------------------------------------------------------------
 // Login/register
@@ -94,7 +98,6 @@ async function login() {
 
 async function register() {
   const registerForm = document.getElementById('registerForm');
-  console.log(registerForm)
   const formData = new FormData(registerForm);
   const jsonData = JSON.stringify(Object.fromEntries(formData));
   const data = await createAccount(jsonData);
@@ -135,26 +138,52 @@ async function refresh() {
 
 function updateDashboard() {
   const account = state.account;
-  updateText('user', account.description);
-  updateText('balance', account.initialBalance);
+  updateText('description', account.description);
+  updateText('balance', account.balance);
+  updateText('currency', account.currency);
 }
 
 function addTransaction() {
   const dialog = document.getElementById('transactionDialog');
   dialog.classList.add('show');
+
+  // Reset form
+  const transactionForm = document.getElementById('transactionForm');
+  transactionForm.reset();
+
+  // Set date to today
+  transactionForm.date.valueAsDate = new Date();
 }
 
 async function confirmTransaction() {
   const dialog = document.getElementById('transactionDialog');
   dialog.classList.remove('show');
+
+  const transactionForm = document.getElementById('transactionForm');
+
+  const formData = new FormData(transactionForm);
+  const jsonData = JSON.stringify(Object.fromEntries(formData));
+  const data = await createTransaction(state.user, jsonData);
+
+  if (data.error) {
+    return updateText('transactionError', data.error);
+  }
+
+  // Update local state with new transaction
+  state.account.transactions.push(data);
+  state.account.balance += data.amount;
+
+  // Update display
+  updateDashboard();
 }
 
 async function cancelTransaction() {
   const dialog = document.getElementById('transactionDialog');
   dialog.classList.remove('show');
+
 }
 
-function gologin() {
+function logout() {
   navigate('/login')
 }
 
