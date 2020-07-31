@@ -42,12 +42,23 @@ router.post('/accounts', (req, res) => {
     return res.status(409).json({ error: 'User already exists' });
   }
 
+  // Convert balance to number if needed
+  let balance = req.body.balance;
+  if (balance && typeof balance !== 'number') {
+    balance = parseFloat(balance);
+  }
+
+  // Check that balance is a valid number
+  if (balance && isNaN(balance)) {
+    return res.status(400).json({ error: 'Balance must be a number' });
+  }
+
   // Create account
   const account = {
     user: req.body.user,
     currency: req.body.currency,
     description: req.body.description || `${req.body.user}'s budget`,
-    initialBalance: req.body.balance || 0,
+    balance: balance || 0,
     transactions: [],
   };
   db[req.body.user] = account;
@@ -102,6 +113,17 @@ router.post('/accounts/:user/transactions', (req, res) => {
     return res.status(400).json({ error: 'Missing parameters' });
   }
 
+  // Convert amount to number if needed
+  let amount = req.body.amount;
+  if (amount && typeof amount !== 'number') {
+    amount = parseFloat(amount);
+  }
+
+  // Check that amount is a valid number
+  if (amount && isNaN(amount)) {
+    return res.status(400).json({ error: 'Amount must be a number' });
+  }
+
   // Generates an ID for the transaction
   const id = crypto
     .createHash('md5')
@@ -118,9 +140,12 @@ router.post('/accounts/:user/transactions', (req, res) => {
     id,
     date: req.body.date,
     object: req.body.object,
-    amount: req.body.amount,
+    amount,
   };
   account.transactions.push(transaction);
+
+  // Update balance
+  account.balance += transaction.amount;
 
   return res.status(201).json(transaction);
 });
