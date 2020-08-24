@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------
 
 const serverUrl = 'http://localhost:5000/api';
+const storageKey = 'savedState';
 
 // ---------------------------------------------------------------------------
 // Router
@@ -71,12 +72,13 @@ async function createTransaction(user, transaction) {
 // ---------------------------------------------------------------------------
 
 let state = {
-  user: 'toto2',
+  user: null,
   account: null
 };
 
 function updateState(newState) {
   state = newState;
+  localStorage.setItem(storageKey, JSON.stringify(state));
 }
 
 // ---------------------------------------------------------------------------
@@ -89,10 +91,15 @@ async function login() {
   const data = await getAccount(user);
 
   if (data.error) {
-    return updateText('loginError', data.error);
+    return updateElement('loginError', data.error);
   }
 
-  state.user = data.user;
+  const newState = {
+    ...state,
+    user: data.user
+  };
+  updateState(newState);
+
   navigate('/dashboard');
 }
 
@@ -103,10 +110,15 @@ async function register() {
   const data = await createAccount(jsonData);
 
   if (data.error) {
-    return updateText('registerError', data.error);
+    return updateElement('registerError', data.error);
   }
 
-  state.user = data.user;
+  const newState = {
+    ...state,
+    user: data.user
+  };
+  updateState(newState);
+
   navigate('/dashboard');
 }
 
@@ -118,17 +130,23 @@ async function updateAccountData() {
   const user = state.user;
 
   if (!user) {
-    navigate('/login');
+    return logout();
   }
 
   const data = await getAccount(user);
 
   if (data.error) {
-    return updateText('dashboardError', data.error);
+    if (data.error === 'User does not exist') {
+      return logout();
+    }
+    return updateElement('dashboardError', data.error);
   }
 
-  console.log(data)
-  state.account = data;
+  const newState = {
+    ...state,
+    account: data
+  };
+  updateState(newState);
 }
 
 async function refresh() {
@@ -138,9 +156,31 @@ async function refresh() {
 
 function updateDashboard() {
   const account = state.account;
-  updateText('description', account.description);
-  updateText('balance', account.balance);
-  updateText('currency', account.currency);
+  if (!account) {
+    return;
+  }
+
+  updateElement('description', account.description);
+  updateElement('balance', account.balance.toFixed(2));
+  updateElement('currency', account.currency);
+
+  // Update transactions
+  const transactionsRows = document.createDocumentFragment();
+  for (const transaction of account.transactions) {
+    const transactionRow = createTransactionRow(transaction);
+    transactionsRows.appendChild(transactionRow);
+  }
+  updateElement('transactions', transactionsRows);
+}
+
+function createTransactionRow(transaction) {
+  const template = document.getElementById('transaction');
+  const transactionRow = template.content.cloneNode(true);
+  const tr = transactionRow.querySelector('tr');
+  tr.children[0].textContent = transaction.date;
+  tr.children[1].textContent = transaction.object;
+  tr.children[2].textContent = transaction.amount.toFixed(2);
+  return transactionRow;
 }
 
 function addTransaction() {
@@ -166,12 +206,19 @@ async function confirmTransaction() {
   const data = await createTransaction(state.user, jsonData);
 
   if (data.error) {
-    return updateText('transactionError', data.error);
+    return updateElement('transactionError', data.error);
   }
 
   // Update local state with new transaction
-  state.account.transactions.push(data);
-  state.account.balance += data.amount;
+  const newState = {
+    ...state,
+    account: {
+      ...state.account,
+      balance: state.account.balance + data.amount,
+      transactions: [...state.account.transactions, data]
+    }
+  }
+  updateState(newState);
 
   // Update display
   updateDashboard();
@@ -180,20 +227,26 @@ async function confirmTransaction() {
 async function cancelTransaction() {
   const dialog = document.getElementById('transactionDialog');
   dialog.classList.remove('show');
-
 }
 
 function logout() {
-  navigate('/login')
+  const newState = {
+    user: null,
+    account: null
+  };
+  updateState(newState);
+
+  navigate('/login');
 }
 
 // ---------------------------------------------------------------------------
 // Utils
 // ---------------------------------------------------------------------------
 
-function updateText(id, text) {
+function updateElement(id, textOrNode) {
   const element = document.getElementById(id);
-  element.innerHTML = text;
+  element.textContent = ''; // Removes all children
+  element.append(textOrNode);
 }
 
 // ---------------------------------------------------------------------------
@@ -201,6 +254,12 @@ function updateText(id, text) {
 // ---------------------------------------------------------------------------
 
 function init() {
+  // Restore state
+  const savedState = localStorage.getItem(storageKey);
+  if (savedState) {
+    updateState(JSON.parse(savedState));
+  }
+
   // Update route for browser back/next buttons
   window.onpopstate = () => updateRoute();
   updateRoute();

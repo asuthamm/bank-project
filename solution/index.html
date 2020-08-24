@@ -65,14 +65,13 @@
         <p id="dashboardError" class="error"></p>
         <table>
           <thead>
-            <th>
-              <td>Date</td>
-              <td>Object</td>
-              <td>Amount</td>
-            </th>
+            <tr>
+              <th>Date</th>
+              <th>Object</th>
+              <th>Amount</th>
+            </tr>
           </thead>
-          <tbody>
-
+          <tbody id="transactions">
           </tbody>
         </table>
       </div>
@@ -87,8 +86,8 @@
           <input name="date" type="date" required>
           <label for="object">Object</label> 
           <input name="object" type="text" maxlength="50" required>
-          <label for="amount">Amount</label> 
-          <input name="amount" type="number" value="0" required>
+          <label for="amount">Amount (use negative value for debit)</label> 
+          <input name="amount" type="number" value="0" step="any" required>
           <div id="transactionError" class="error"></div>
           <div class="dialog-buttons">
             <button class="button-alt" formaction="javascript:cancelTransaction()" formnovalidate>Cancel</button>
@@ -97,6 +96,15 @@
         </form>
       </div>
     </section>
+  </template>
+
+  <!-- Transaction row template -->
+  <template id="transaction">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
   </template>
 
   <script src="app.js"></script>
