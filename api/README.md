@@ -25,6 +25,6 @@ Make sure you have [Node.js](https://nodejs.org) version installed.
 2. Open a terminal in `api` folder, then run `npm install`.
 3. Run `npm start`.
 
-The server should start listening on port `3000`.
+The server should start listening on port `5000`.
 
 > Note: all entries are stored in-memory and are not persisted, so when the server is stopped all data is lost.
