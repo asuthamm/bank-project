@@ -19,7 +19,7 @@ DELETE  /api/accounts/:user/transactions/:id | Remove specified transaction
 
 ## Running the server
 
-Make sure you have [Node.js](https://nodejs.org) version installed.
+Make sure you have [Node.js](https://nodejs.org) installed.
 
 1. Git clone this repo.
 2. Open a terminal in `api` folder, then run `npm install`.
