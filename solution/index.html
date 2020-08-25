@@ -17,7 +17,7 @@
       <div class="login-container">
         <div class="login-title text-center">
           <span class="hide-xs">Squirrel</span>
-          <img class="logo" src="logo.svg" alt="Squirrel Banking Logo">
+          <img class="login-logo" src="logo.svg" alt="Squirrel Banking Logo">
           <span class="hide-xs">Banking</span>
         </div>
         <div class="login-content">
@@ -50,20 +50,22 @@
   <!-- Dashboard page template -->
   <template id="dashboard">
     <section class="dashboard-page">
-      <header>
-        <nav>
-          <img class="logo" src="logo.svg" alt="Squirrel Banking Logo">
-
-        </nav>
-        <div class="balance">
-          <span id="balance" aria-label="balance"></span>
-          <span id="currency" aria-label="currency symbol"></span>
-        </div>
+      <header class="dashboard-header">
+        <img class="dashboard-logo" src="logo.svg" alt="Squirrel Banking Logo">
+        <span class="dashboard-title hide-xs">Squirrel Banking</span>
+        <button onclick="logout()">Logout</button>
       </header>
-      <h2 class="text-center" id="description"></h2>
+      <div class="balance">
+        <div>Balance</div>
+        <span id="balance" aria-label="balance"></span>
+        <span id="currency" aria-label="currency symbol"></span>
+      </div>
       <div class="dashboard-content">
-        <p id="dashboardError" class="error"></p>
-        <table>
+        <div class="transactions-title">
+          <div id="description" aria-label="Account description"></div>
+          <button onclick="addTransaction()">Add transaction</button>
+        </div>
+        <table class="transactions-table" aria-label="Transactions">
           <thead>
             <tr>
               <th>Date</th>
@@ -74,9 +76,8 @@
           <tbody id="transactions">
           </tbody>
         </table>
+        <p id="dashboardError" class="error"></p>
       </div>
-      <button onclick="addTransaction()" aria-label="Add transaction">+</button>
-      <button onclick="logout()">Logout</button>
     </section>
     <section id="transactionDialog" class="dialog">
       <div class="dialog-content">
