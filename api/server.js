@@ -46,11 +46,9 @@ router.post('/accounts', (req, res) => {
   let balance = req.body.balance;
   if (balance && typeof balance !== 'number') {
     balance = parseFloat(balance);
-  }
-
-  // Check that balance is a valid number
-  if (isNaN(balance)) {
-    return res.status(400).json({ error: 'Balance must be a number' });
+    if (isNaN(balance)) {
+      return res.status(400).json({ error: 'Balance must be a number' });  
+    }
   }
 
   // Create account
