@@ -49,7 +49,7 @@ router.post('/accounts', (req, res) => {
   }
 
   // Check that balance is a valid number
-  if (balance && isNaN(balance)) {
+  if (isNaN(balance)) {
     return res.status(400).json({ error: 'Balance must be a number' });
   }
 
