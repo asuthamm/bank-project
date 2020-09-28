@@ -4,7 +4,7 @@
 
 ## Running the app
 
-First make sure you have the [API server](../api/README) running.
+First make sure you have the [API server](../api/README.md) running.
 
 Any web server can be used to run the app, but since you should have [Node.js](https://nodejs.org) installed anyway to run the API, you can:
 
