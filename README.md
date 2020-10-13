@@ -1,6 +1,6 @@
 # Build a Bank!
 
-In this project, you'll learn how to build an API to support a fictional bank. These lessons include instruction on how to layout a web site and provide routes, build forms, manage state, and fetch data from your API.
+In this project, you'll learn how to build a fictional bank. These lessons include instruction on how to layout a web site and provide routes, build forms, manage state, and fetch data from an API from which you can fetch the bank's data.
 
 ### Topics
 

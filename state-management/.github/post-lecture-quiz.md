@@ -1,9 +1,4 @@
-*Complete this quiz along with your submission by checking one answer per question.*
-
-You will need to complete the following learn module(s) to complete the quiz:
-
-[Learn Link 1]()
-[Learn Link 2]()
+*Complete this quiz by checking one answer per question.*
 
 1. [Q1]
 
@@ -18,7 +13,6 @@ You will need to complete the following learn module(s) to complete the quiz:
 - [ ] [Option 3]
 
 3. [Q3]
-   
 - [ ] [Option 1]
 - [ ] [Option 2]
 - [ ] [Option 3]

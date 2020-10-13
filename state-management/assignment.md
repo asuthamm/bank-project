@@ -4,7 +4,7 @@
 
 ## Rubric
 
-Criteria | Exemplary | Adequate | Needs Improvement
---- | --- | --- | -- |
-||||
-||||
+| Criteria | Exemplary | Adequate | Needs Improvement |
+| -------- | --------- | -------- | ----------------- |
+|          |           |          |
+|          |
