@@ -1,10 +1,12 @@
-# Squirrel Banking API
+# Bank API
 
-> Banking API built with [Node.js](https://nodejs.org) + [Express](https://expressjs.com/).
+> Bank API built with [Node.js](https://nodejs.org) + [Express](https://expressjs.com/).
 
 The API is already built for you and not part of the exercise.
 
-However, if you're interested to learn how to build an API like this you can follow this tutorial: https://aka.ms/learn/express-api
+However, if you're interested to learn how to build an API like this you can follow this series of videos: https://aka.ms/NodeBeginner (videos 17 through 21 covers this exact API).
+
+You can also take a look at this interactive tutorial: https://aka.ms/learn/express-api
 
 ## API
 

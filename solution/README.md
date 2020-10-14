@@ -1,6 +1,6 @@
-# Squirrel Banking app
+# Bank app
 
-> Example solution for the banking app project, built with vanilla HTML5, CSS and JavaScript (no frameworks or libraries used).
+> Example solution for the bank app project, built with vanilla HTML5, CSS and JavaScript (no frameworks or libraries used).
 
 ## Running the app
 
