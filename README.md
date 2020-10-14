@@ -6,7 +6,7 @@ In this project, you'll learn how to build a fictional bank. These lessons inclu
 
 ## Lessons
 
-1. [Layout and Route a Web Site](layout-route/README.md)
+1. [HTML Templates and Routes in a Web App](template-route/README.md)
 2. [Build a Login and Registration Form](forms/README.md)
 3. [Concepts of State Management](state-management/README.md)
 4. [Methods of Fetching and Using Data](data/README.md)
