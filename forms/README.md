@@ -48,4 +48,4 @@ Optional: add a screenshot of the completed lesson's UI if appropriate
 
 ## Review & Self Study
 
-**Assignment Due [MM/YY]**: [Assignment Name](assignment.md)
+**Assignment**: [Style your bank app](assignment.md)
