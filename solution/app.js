@@ -36,6 +36,8 @@ function updateRoute() {
   if (route.init) {
     route.init();
   }
+
+  document.title = route.title;
 }
 
 // ---------------------------------------------------------------------------
