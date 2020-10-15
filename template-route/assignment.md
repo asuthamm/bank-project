@@ -1,13 +1,14 @@
-# Style your bank app
+# Improve the routing
 
 ## Instructions
 
-Create a new `styles.css` file and add a link to it in your current `index.html` file. In the CSS file you just created add some styling to make the *Login* and *Dashboard* page looks nice and tidy. Try to create a color theme to give your app its own branding.
+The routes declaration contains currently only the template ID to use. But when displaying a new page, a bit more is needed sometimes. Let's improve our routing implementation with two additional features:
 
-> Tip: you can modify the HTML and add new elements and classes if needed.
+- Give titles to each template and update the window title with it when the template changes.
+- Add an option to run some code after the template changes. We want to print `'Dashboard is shown'` in the developer console every time the dashboard page is displayed. 
 
 ## Rubric
 
 | Criteria | Exemplary | Adequate | Needs Improvement |
 | -------- | --------- | -------- | ----------------- |
-|          | All pages looks clean and readable, with a consistent color theme and and the different sections standing out properly. | Pages are styled but without a theme or with sections not clearly delimitated. | Pages lack styling, the sections looks disorganized and the informations are difficult to read.
+|          | The two features are implemented and working. Title and code addition also work for a new route added in the `routes` declaration. | The two features works, but the behavior is hardcoded and not configurable via the `routes` declaration. Adding a third route with title and code addition do not work or work partially. | One of the features is missing or not working properly.
