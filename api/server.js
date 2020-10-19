@@ -40,22 +40,30 @@ router.get('/', (req, res) => {
 
 // Create an account
 router.post('/accounts', (req, res) => {
+  const body = req.body;
+  console.log(body);
   // Check mandatory request parameters
-  if (!req.body.user || !req.body.currency) {
-    return res.status(400).json({ error: 'Missing parameters' });
+  if (!body.user || !body.currency) {
+    return res
+            .status(400)
+            .json({ error: 'Missing parameters' });
   }
 
   // Check if account already exists
-  if (db[req.body.user]) {
-    return res.status(409).json({ error: 'User already exists' });
+  if (db[body.user]) {
+    return res
+            .status(409)
+            .json({ error: 'User already exists' });
   }
 
   // Convert balance to number if needed
-  let balance = req.body.balance;
+  let balance = body.balance;
   if (balance && typeof balance !== 'number') {
     balance = parseFloat(balance);
     if (isNaN(balance)) {
-      return res.status(400).json({ error: 'Balance must be a number' });  
+      return res
+              .status(400)
+              .json({ error: 'Balance must be a number' });  
     }
   }
 
@@ -80,7 +88,9 @@ router.get('/accounts/:user', (req, res) => {
 
   // Check if account exists
   if (!account) {
-    return res.status(404).json({ error: 'User does not exist' });
+    return res
+      .status(404)
+      .json({ error: 'User does not exist' });
   }
 
   return res.json(account);
