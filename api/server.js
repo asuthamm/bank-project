@@ -9,7 +9,15 @@ const port = process.env.PORT || 5000;
 const apiPrefix = '/api';
 
 // Store data in-memory, not suited for production use!
-const db = {};
+const db = {
+  'alex': {
+    'user': 'alex',
+    'currency': 'USD',
+    'balance': 100,
+    'description': 'initial account',
+    'transaction': []
+  }
+};
 
 // Create the Express app & setup middlewares
 const app = express();
